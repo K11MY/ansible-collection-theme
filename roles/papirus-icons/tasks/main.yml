@@ -1,0 +1,23 @@
+---
+- name: Papirus Icon | Create .icons folder
+  ansible.builtin.file:
+    path: "/home/{{ user_home }}/.icons"
+    state: directory
+
+- name: Papirus Icon | Icon script check if icon exist
+  ansible.builtin.stat: 
+    path: "/home/{{ user_home }}/.icons/{{ item }}"
+  register: _icon_result
+  loop: "{{ icon_folder }}"
+
+- name: Papirus Icon | Get Icon script
+  ansible.builtin.get_url:
+    url: https://git.io/papirus-icon-theme-install
+    dest: "/home/{{ user_home }}/.icons/"
+    mode: '0777'
+
+- name: Papirus Icon | Install icons
+  ansible.builtin.shell: |
+    wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR='/home/"{{ user_home }}"/.icons' sh
+  when: not item.stat.exists
+  with_items: "{{ _icon_result.results }}"

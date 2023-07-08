@@ -1,0 +1,10 @@
+---
+# defaults file for roles/papirus-icons
+icon_folder:
+  - ePapirus
+  - ePapirus-Dark
+  - Papirus
+  - Papirus-Dark
+  - Papirus-Light
+
+user_home: test
