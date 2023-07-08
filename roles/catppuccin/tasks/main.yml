@@ -1,0 +1,48 @@
+---
+# tasks file for roles/catppuccin
+- name: Catpuccin | Create in config gtk4-0 direcory
+  ansible.builtin.file:
+    path: "{{ user_home }}/.config/gtk-4.0"
+    state: directory
+
+- name: Catpuccin | Create catpuccin theme folder
+  ansible.builtin.file:
+    path: "{{ cattpuccin_dir }}"
+    state: directory
+
+- name: Catppuccin | Create gtk-4.0 folder
+  ansible.builtin.file:
+    path: "{{ user_home }}/.config/gtk-4.0"
+    state: directory
+
+- name: Catpuccin | Create gtk in .themes
+  ansible.builtin.file:
+    path: "{{ user_home }}/.themes/gtk-4.0"
+    state: directory
+    
+- name: Catpuccin | Create symbolic link gtk files to .themes folder
+  .builtin.file:
+    src: "{{ user_home }}/.config/gtk-4.0/{{ item }}"
+    dest: "{{ user_home }}/.themes/gtk-4.0/{{ item }}"
+    state: link
+    force: true
+  loop:
+    - assets
+    - gtk.css
+    - gtk-dark.css
+
+- name: Cattpuccin | Clone cattpuccin
+  ansible.builtin.git:
+    repo: git@github.com:catppuccin/gtk.git
+    dest: "{{ user_home }}/cat_theme"
+    recursive: true
+
+- name: Cattpuccin | Install python requirements
+  ansible.builtin.pip:
+    requirements: "{{ user_home }}/cat_theme/requirements.txt"
+
+- name: Catpuccin | Install catpuccin themes
+  ansible.builtin.shell: | 
+    cd "{{ user_home }}/cat_theme/"
+    python install.py "{{ color_variant }}" --accent "{{ accent }}" --link --tweaks "{{ tweaks }}" -d ~/.themes
+  
