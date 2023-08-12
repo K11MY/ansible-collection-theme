@@ -1,7 +1,7 @@
 Papirus Icons
 =========
 
-This role will download and install papirus icons
+This role will download and install Catppuccin themes
 
 Role Variables
 --------------

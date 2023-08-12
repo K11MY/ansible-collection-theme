@@ -1,7 +1,7 @@
 ---
 # defaults file for roles/catppuccin
 user_home: test
-color_variant: frappe
-accent: rosewater
-tweaks: rimless
+color_variant: Frappe
+accent: Rosewater
+tweaks: Rimless
 cattpuccin_dir: "{{ user_home }}/cat_theme"

@@ -21,7 +21,7 @@
     state: directory
     
 - name: Catpuccin | Create symbolic link gtk files to .themes folder
-  .builtin.file:
+  ansible.builtin.file:
     src: "{{ user_home }}/.config/gtk-4.0/{{ item }}"
     dest: "{{ user_home }}/.themes/gtk-4.0/{{ item }}"
     state: link
@@ -41,8 +41,11 @@
   ansible.builtin.pip:
     requirements: "{{ user_home }}/cat_theme/requirements.txt"
 
+# Add task to check current Catppucin themes
+
 - name: Catpuccin | Install catpuccin themes
   ansible.builtin.shell: | 
     cd "{{ user_home }}/cat_theme/"
     python install.py "{{ color_variant }}" --accent "{{ accent }}" --link --tweaks "{{ tweaks }}" -d ~/.themes
-  
+
+# Add task to set user theme to the variant installed 
