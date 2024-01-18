@@ -6,14 +6,15 @@ components:
     volume:
       size: 1G
   - name: devtools
-    container: hub.docker.com/_/fedora
-    memoryRequest: 2G
-    memoryLimit: 4G
-    cpuRequest: '1'
-    cpuLimit: '2'
-    volumeMounts:
-      - name: bundle-volume
-        path: /home/user/.bundle/vendor
+    container: 
+      image: hub.docker.com/_/fedora:39
+      memoryRequest: 2G
+      memoryLimit: 4G
+      cpuRequest: '1'
+      cpuLimit: '2'
+      volumeMounts:
+        - name: bundle-volume
+          path: /home/user/.bundle/vendor
 events:
   postStart:
     - bundle-install
