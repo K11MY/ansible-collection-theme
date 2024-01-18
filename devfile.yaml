@@ -7,7 +7,7 @@ components:
       size: 1G
   - name: devtools
     container: 
-      image: hub.docker.com/_/fedora:39
+      image: docker.io/library/fedora:39
       memoryRequest: 2G
       memoryLimit: 4G
       cpuRequest: '1'
