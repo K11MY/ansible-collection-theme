@@ -1,0 +1,19 @@
+schemaVersion: 2.2.0
+metadata:
+  name: gnome-theme
+components:
+  - name: bundle-volume
+    volume:
+      size: 1G
+  - name: devtools
+    container: hub.docker.com/_/fedora
+    memoryRequest: 2G
+    memoryLimit: 4G
+    cpuRequest: '1'
+    cpuLimit: '2'
+    volumeMounts:
+      - name: bundle-volume
+        path: /home/user/.bundle/vendor
+events:
+  postStart:
+    - bundle-install
